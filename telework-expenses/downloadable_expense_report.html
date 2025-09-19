@@ -2203,24 +2203,25 @@ https://microsoft.sharepoint.com/:w:/t/OnboardingM365Core/EXYgmCAfFC9FhZGw3lQava
             const paramsProviderSuccessMsg = "Downloading expense report...";
             let missingParamsErrorMsg = "Please provider all required parameters.";
 
-            const replacements = {
-                '#EXPENSE_MONTH#': urlParams.get('expense_month'),
-                '#EXPENSE_YEAR#': urlParams.get('expense_year'),
-                '#INTERNET_BILL_AMOUNT#': urlParams.get('internet_bill_amount'),
-                '#INTERNET_PROVIDER_NAME#': urlParams.get('internet_provider_name'),
-                '#ELECTRICITY_BILL_AMOUNT#': urlParams.get('electricity_bill_amount'),
-                '#ELECTRICITY_PROVIDER_NAME#': urlParams.get('electricity_provider_name'),
-                '#CELLULAR_PLAN_BILL_AMOUNT#': urlParams.get('cellular_plan_bill_amount'),
-                '#CELULLAR_PLAN_PROVIDER_NAME#': urlParams.get('celullar_plan_provider_name'),
-                '#EXPENSE_COUNTRY_CODE#': urlParams.get('expense_country_code')
+            const mappings = {
+                '#EXPENSE_MONTH#': 'expense_month',
+                '#EXPENSE_YEAR#': 'expense_year',
+                '#INTERNET_BILL_AMOUNT#': 'internet_bill_amount',
+                '#INTERNET_PROVIDER_NAME#': 'internet_provider_name',
+                '#ELECTRICITY_BILL_AMOUNT#': 'electricity_bill_amount',
+                '#ELECTRICITY_PROVIDER_NAME#': 'electricity_provider_name',
+                '#CELLULAR_PLAN_BILL_AMOUNT#': 'cellular_plan_bill_amount',
+                '#CELULLAR_PLAN_PROVIDER_NAME#': 'celullar_plan_provider_name',
+                '#EXPENSE_COUNTRY_CODE#': 'expense_country_code'
             };
 
-            for (const [placeholder, value] of Object.entries(replacements)) {
+            for (const [placeholder, name] of Object.entries(mappings)) {
+                let value = urlParams.get(name);
                 if (value) {
                     baseContent = baseContent.replace(placeholder, value);
                 } else {
                     paramsProvided = false;
-                    missingParamsErrorMsg += `<br><br>${placeholder}`;
+                    missingParamsErrorMsg += `<br><br>${name}=${placeholder}`;
                 }
             }
 
