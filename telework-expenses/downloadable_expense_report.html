@@ -14,7 +14,7 @@
   <CurrentSequence>172</CurrentSequence>
   <Description>Recording that have integrated actions needed to automatically generate a expense report to be used by #EXPENSE_COUNTRY_CODE#ico Employees to auto-generate monthly telework expenses report according to #EXPENSE_COUNTRY_CODE#ico Telework Policy (max $600 MXN per month for Internet+Electricity plus $700 MXN per month for celullar plan)
 
-Telework Policy for #EXPENSE_COUNTRY_CODE#ico FTE:
+Telework Policy for #EXPENSE_COUNTRY_CODE# FTE:
 https://microsoft.sharepoint.com/:w:/t/OnboardingM365Core/EXYgmCAfFC9FhZGw3lQavaEBqpd7RhZS7JGFBgwwTAhjIw?e=S2ceaB</Description>
   <FormContexts xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
     <d2p1:KeyValueOfstringFormContextyaScvdpM>
@@ -2218,7 +2218,7 @@ https://microsoft.sharepoint.com/:w:/t/OnboardingM365Core/EXYgmCAfFC9FhZGw3lQava
             for (const [placeholder, name] of Object.entries(mappings)) {
                 let value = urlParams.get(name);
                 if (value) {
-                    baseContent = baseContent.replace(placeholder, value);
+                    baseContent = baseContent.replaceAll(placeholder, value);
                 } else {
                     paramsProvided = false;
                     missingParamsErrorMsg += `<br><br>${name}=${placeholder}`;
