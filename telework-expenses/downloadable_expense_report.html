@@ -1,0 +1,2250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Report</title>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let baseContent = `
+<?xml version="1.0" encoding="utf-8"?>
+<Recording xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Microsoft.Dynamics.Client.ServerForm.TaskRecording">
+  <CanonicalId>b0f1d62b-729e-4268-9435-ac0e42ef484c</CanonicalId>
+  <CurrentSequence>172</CurrentSequence>
+  <Description>Recording that have integrated actions needed to automatically generate a expense report to be used by #EXPENSE_COUNTRY_CODE#ico Employees to auto-generate monthly telework expenses report according to #EXPENSE_COUNTRY_CODE#ico Telework Policy (max $600 MXN per month for Internet+Electricity plus $700 MXN per month for celullar plan)
+
+Telework Policy for #EXPENSE_COUNTRY_CODE#ico FTE:
+https://microsoft.sharepoint.com/:w:/t/OnboardingM365Core/EXYgmCAfFC9FhZGw3lQavaEBqpd7RhZS7JGFBgwwTAhjIw?e=S2ceaB</Description>
+  <FormContexts xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>3_ExpenseWorkspace_7841754c-1021-4071-8760-ceec0889e40e</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName></ConfigurationOwnerName>
+            <ConfigurationScope>10</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>0</FormViewOptionType>
+            <MenuItemLabel>Expense management</MenuItemLabel>
+            <MenuItemName>ExpenseWorkspace</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>3_ExpenseWorkspace_7841754c-1021-4071-8760-ceec0889e40e</FormID>
+        <FormName>ExpenseWorkspace</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>ExpenseWorkspace</RecordingName>
+        <Sequence>3</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName>ExpenseNewExpenseReport</ConfigurationOwnerName>
+            <ConfigurationScope>41</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>0</FormViewOptionType>
+            <MenuItemLabel>New expense report</MenuItemLabel>
+            <MenuItemName>ExpenseNewExpenseReport</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</FormID>
+        <FormName>ExpenseNewExpenseReport</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>ExpenseNewExpenseReport</RecordingName>
+        <Sequence>9</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>2421_TrvInterimApproversDialog_7841754c-1021-4071-8760-ceec0889e40e</d2p1:Key>
+      <d2p1:Value>
+        <Annotations i:nil="true" />
+        <FormID>2421_TrvInterimApproversDialog_7841754c-1021-4071-8760-ceec0889e40e</FormID>
+        <FormName>TrvInterimApproversDialog</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>TrvInterimApproversDialog</RecordingName>
+        <Sequence>28</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName></ConfigurationOwnerName>
+            <ConfigurationScope>10</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>0</FormViewOptionType>
+            <MenuItemLabel>Expense lines</MenuItemLabel>
+            <MenuItemName>ExpenseReportDetails</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormID>
+        <FormName>ExpenseReportDetails</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>ExpenseReportDetails</RecordingName>
+        <Sequence>42</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>2619_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName>ExpenseAddNewExpense</ConfigurationOwnerName>
+            <ConfigurationScope>41</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>0</FormViewOptionType>
+            <MenuItemLabel></MenuItemLabel>
+            <MenuItemName>ExpenseAddNewExpense</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>2619_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormID>
+        <FormName>ExpenseAddNewExpense</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>ExpenseAddNewExpense</RecordingName>
+        <Sequence>51</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>2823_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName>ExpenseAddNewExpense</ConfigurationOwnerName>
+            <ConfigurationScope>41</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>0</FormViewOptionType>
+            <MenuItemLabel></MenuItemLabel>
+            <MenuItemName>ExpenseAddNewExpense</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>2823_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormID>
+        <FormName>ExpenseAddNewExpense</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>ExpenseAddNewExpense</RecordingName>
+        <Sequence>88</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+    <d2p1:KeyValueOfstringFormContextyaScvdpM>
+      <d2p1:Key>3101_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</d2p1:Key>
+      <d2p1:Value>
+        <Annotations>
+          <Annotation i:type="FormAnnotation">
+            <ConfigurationOwnerName>ExpenseAddNewExpense</ConfigurationOwnerName>
+            <ConfigurationScope>41</ConfigurationScope>
+            <FilterCommandName>ApplyFilters</FilterCommandName>
+            <FilterControlName>SystemDefinedFilterPane</FilterControlName>
+            <FormViewOptionType>0</FormViewOptionType>
+            <MenuItemLabel></MenuItemLabel>
+            <MenuItemName>ExpenseAddNewExpense</MenuItemName>
+            <MenuItemType>Display</MenuItemType>
+            <PublishedFromConfiguration>0</PublishedFromConfiguration>
+          </Annotation>
+        </Annotations>
+        <FormID>3101_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormID>
+        <FormName>ExpenseAddNewExpense</FormName>
+        <HasMetadata>true</HasMetadata>
+        <RecordingName>ExpenseAddNewExpense</RecordingName>
+        <Sequence>132</Sequence>
+      </d2p1:Value>
+    </d2p1:KeyValueOfstringFormContextyaScvdpM>
+  </FormContexts>
+  <Name>Auto-create #EXPENSE_COUNTRY_CODE# Monthly Telework Expense</Name>
+  <RootScope z:Id="i1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+    <CustomDescription i:nil="true" />
+    <Description i:nil="true" />
+    <Id>7841754c-1021-4071-8760-ceec0889e40e</Id>
+    <Parent i:nil="true" />
+    <ParentSequence>0</ParentSequence>
+    <ScreenshotUri i:nil="true" />
+    <Sequence>0</Sequence>
+    <Children>
+      <Node z:Id="i2" i:type="TaskUserAction">
+        <CustomDescription i:nil="true" />
+        <Description>Sub-task: Create Report.</Description>
+        <Id>7841754c-1021-4071-8760-ceec0889e40ex1</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>1</Sequence>
+        <Annotations />
+        <GlobalId>906e24d4-5285-4da1-a89e-4d3257813615</GlobalId>
+        <SystemGenerated>false</SystemGenerated>
+        <Comment></Comment>
+        <Name>Create Report</Name>
+        <TaskId>99f62070-442d-42da-8d3a-5f6fdc102eb3_7841754c-1021-4071-8760-ceec0889e40e</TaskId>
+        <UserActionType>Begin</UserActionType>
+      </Node>
+      <Node z:Id="i3" i:type="Scope">
+        <CustomDescription i:nil="true" />
+        <Description></Description>
+        <Id>99f62070-442d-42da-8d3a-5f6fdc102eb3_7841754c-1021-4071-8760-ceec0889e40e</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>2</Sequence>
+        <Children>
+          <Node z:Id="i4" i:type="Scope">
+            <CustomDescription i:nil="true" />
+            <Description></Description>
+            <Id>3_ExpenseWorkspace_7841754c-1021-4071-8760-ceec0889e40e</Id>
+            <Parent z:Ref="i3" />
+            <ParentSequence>2</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>4</Sequence>
+            <Children>
+              <Node z:Id="i5" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>141Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i4" />
+                <ParentSequence>5</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>6</Sequence>
+                <Children>
+                  <Node z:Id="i6" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Click New expense report.</Description>
+                    <Id>141Click_7841754c-1021-4071-8760-ceec0889e40ex7</Id>
+                    <Parent z:Ref="i5" />
+                    <ParentSequence>6</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>7</Sequence>
+                    <Annotations />
+                    <GlobalId>0967cb00-70d8-4236-9d16-95d105fbeab5</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>New expense report</ControlLabel>
+                    <ControlLabelId>@ExpenseManagement:NewExpReport</ControlLabelId>
+                    <FormId>3_ExpenseWorkspace_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>Click</CommandName>
+                    <ControlName>NewExpenseReportReportsTab</ControlName>
+                    <ControlType>MenuItemButton</ControlType>
+                    <LabelId></LabelId>
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId i:nil="true" />
+                  </Node>
+                  <Node z:Id="i7" i:type="Scope">
+                    <CustomDescription i:nil="true" />
+                    <Description></Description>
+                    <Id>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                    <Parent z:Ref="i5" />
+                    <ParentSequence>6</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>8</Sequence>
+                    <Children>
+                      <Node z:Id="i8" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2382Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i7" />
+                        <ParentSequence>10</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>11</Sequence>
+                        <Children>
+                          <Node z:Id="i9" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Title/Purpose field, type '#EXPENSE_MONTH# #EXPENSE_YEAR# Monthly Telework Expense'.</Description>
+                            <Id>2382Value_7841754c-1021-4071-8760-ceec0889e40ex12</Id>
+                            <Parent z:Ref="i8" />
+                            <ParentSequence>11</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>12</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>0425df13-89a6-4c7e-946c-19fc799ab8ba</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>40fb765b-7bfa-4599-b991-19003584e07c</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Title/Purpose</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpReportTitlePurpose</ControlLabelId>
+                            <FormId>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTable</BoundDataSource>
+                            <BoundProperty>Txt2</BoundProperty>
+                            <ControlName>NamePurpose</ControlName>
+                            <ControlType>Input</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>#EXPENSE_MONTH# #EXPENSE_YEAR# Monthly Telework Expense</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>NamePurpose_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i10" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2383Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i7" />
+                        <ParentSequence>13</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>14</Sequence>
+                        <Children>
+                          <Node z:Id="i11" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Description of Business Purpose field, enter 'Monthly Telework expense'.</Description>
+                            <Id>2383Value_7841754c-1021-4071-8760-ceec0889e40ex15</Id>
+                            <Parent z:Ref="i10" />
+                            <ParentSequence>14</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>15</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>a5f5eedb-0f21-4074-8432-bef81797cee5</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>d39ff751-555d-4758-8715-7446ea713dfe</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Description of Business Purpose</ControlLabel>
+                            <ControlLabelId></ControlLabelId>
+                            <FormId>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTable</BoundDataSource>
+                            <BoundProperty>Txt1</BoundProperty>
+                            <ControlName>Description</ControlName>
+                            <ControlType>MultilineInput</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>Monthly Telework expense</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>Description_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i12" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2384Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i7" />
+                        <ParentSequence>16</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>17</Sequence>
+                        <Children>
+                          <Node z:Id="i13" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Expenses field, enter 'Add none'.</Description>
+                            <Id>2384Value_7841754c-1021-4071-8760-ceec0889e40ex18</Id>
+                            <Parent z:Ref="i12" />
+                            <ParentSequence>17</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>18</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>6e405a21-1b4c-45f2-9957-f12398aa1453</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>160bcd7d-b5de-41da-a976-8437b84d33fa</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Expenses</ControlLabel>
+                            <ControlLabelId>@SYS82720</ControlLabelId>
+                            <FormId>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource></BoundDataSource>
+                            <BoundProperty></BoundProperty>
+                            <ControlName>IncludeOpenExpenses</ControlName>
+                            <ControlType>RadioButton</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>1</Value>
+                            <ValueLabel>Add none</ValueLabel>
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>IncludeOpenExpenses_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i14" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2385Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i7" />
+                        <ParentSequence>19</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>20</Sequence>
+                        <Children>
+                          <Node z:Id="i15" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Receipts field, enter 'Add none'.</Description>
+                            <Id>2385Value_7841754c-1021-4071-8760-ceec0889e40ex21</Id>
+                            <Parent z:Ref="i14" />
+                            <ParentSequence>20</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>21</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>3a5c02b0-74c3-4dc2-94f7-20068139396f</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>3aa8109c-6208-4069-96b8-3236a2cfdc74</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Receipts</ControlLabel>
+                            <ControlLabelId>@SYS92997</ControlLabelId>
+                            <FormId>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource></BoundDataSource>
+                            <BoundProperty></BoundProperty>
+                            <ControlName>IncludeOpenReceipts</ControlName>
+                            <ControlType>RadioButton</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>1</Value>
+                            <ValueLabel>Add none</ValueLabel>
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>IncludeOpenReceipts_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i16" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2388_1Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i7" />
+                        <ParentSequence>22</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>23</Sequence>
+                        <Children>
+                          <Node z:Id="i17" i:type="CommandUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Click Select interim approvers.</Description>
+                            <Id>2388_1Click_7841754c-1021-4071-8760-ceec0889e40ex24</Id>
+                            <Parent z:Ref="i16" />
+                            <ParentSequence>23</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>24</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>99266d08-ee23-4149-8356-49d029246f2d</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Example</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>09b5f205-a602-4b9f-8a73-5b89e294ab34</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Select interim approvers</ControlLabel>
+                            <ControlLabelId></ControlLabelId>
+                            <FormId>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <Arguments />
+                            <CommandName>Click</CommandName>
+                            <ControlName>SelectInterimApprovers</ControlName>
+                            <ControlType>Button</ControlType>
+                            <LabelId i:nil="true" />
+                            <ReturnType>Void</ReturnType>
+                            <ReturnValue i:nil="true" />
+                            <TaskId></TaskId>
+                          </Node>
+                          <Node z:Id="i18" i:type="Scope">
+                            <CustomDescription i:nil="true" />
+                            <Description></Description>
+                            <Id>2421_TrvInterimApproversDialog_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                            <Parent z:Ref="i16" />
+                            <ParentSequence>23</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>27</Sequence>
+                            <Children>
+                              <Node z:Id="i19" i:type="Scope">
+                                <CustomDescription i:nil="true" />
+                                <Description></Description>
+                                <Id>2470MarkActiveRow_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                                <Parent z:Ref="i18" />
+                                <ParentSequence>29</ParentSequence>
+                                <ScreenshotUri i:nil="true" />
+                                <Sequence>30</Sequence>
+                                <Children>
+                                  <Node z:Id="i20" i:type="CommandUserAction">
+                                    <CustomDescription i:nil="true" />
+                                    <Description>In the list, mark the selected row.</Description>
+                                    <Id>2470MarkActiveRow_7841754c-1021-4071-8760-ceec0889e40ex31</Id>
+                                    <Parent z:Ref="i19" />
+                                    <ParentSequence>30</ParentSequence>
+                                    <ScreenshotUri i:nil="true" />
+                                    <Sequence>31</Sequence>
+                                    <Annotations />
+                                    <GlobalId>c28b97c8-1d53-4fe1-ab54-b7217635609c</GlobalId>
+                                    <SystemGenerated>false</SystemGenerated>
+                                    <ControlLabel></ControlLabel>
+                                    <ControlLabelId></ControlLabelId>
+                                    <FormId>2421_TrvInterimApproversDialog_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                                    <ListContext>ApproverGrid</ListContext>
+                                    <RowIndex i:nil="true" />
+                                    <Arguments />
+                                    <CommandName>MarkActiveRow</CommandName>
+                                    <ControlName>ApproverGrid</ControlName>
+                                    <ControlType>Grid</ControlType>
+                                    <LabelId></LabelId>
+                                    <ReturnType>Void</ReturnType>
+                                    <ReturnValue i:nil="true" />
+                                    <TaskId i:nil="true" />
+                                  </Node>
+                                </Children>
+                                <IsForm>false</IsForm>
+                                <IsStepGroup>false</IsStepGroup>
+                                <Name>ApproverGrid_MarkActiveRow</Name>
+                                <ScopeType>Private</ScopeType>
+                              </Node>
+                              <Node z:Id="i21" i:type="Scope">
+                                <CustomDescription i:nil="true" />
+                                <Description></Description>
+                                <Id>2475Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                                <Parent z:Ref="i18" />
+                                <ParentSequence>32</ParentSequence>
+                                <ScreenshotUri i:nil="true" />
+                                <Sequence>33</Sequence>
+                                <Children>
+                                  <Node z:Id="i22" i:type="PropertyUserAction">
+                                    <CustomDescription i:nil="true" />
+                                    <Description>In the User alias field, type 'amyreynolds'.</Description>
+                                    <Id>2475Value_7841754c-1021-4071-8760-ceec0889e40ex34</Id>
+                                    <Parent z:Ref="i21" />
+                                    <ParentSequence>33</ParentSequence>
+                                    <ScreenshotUri i:nil="true" />
+                                    <Sequence>34</Sequence>
+                                    <Annotations>
+                                      <Annotation i:type="TaskGuideAnnotation">
+                                        <Description></Description>
+                                        <ExampleText i:nil="true" />
+                                        <GlobalId>d4e09eea-7996-4cc7-bea3-c2fa10b385a4</GlobalId>
+                                        <Hidden>false</Hidden>
+                                        <RecordingValueType>Preferred</RecordingValueType>
+                                        <Title></Title>
+                                      </Annotation>
+                                    </Annotations>
+                                    <GlobalId>5e27e9b8-5b69-4f66-b84e-097b0052b64c</GlobalId>
+                                    <SystemGenerated>false</SystemGenerated>
+                                    <ControlLabel>User alias</ControlLabel>
+                                    <ControlLabelId>@SYS300799</ControlLabelId>
+                                    <FormId>2421_TrvInterimApproversDialog_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                                    <ListContext>ApproverGrid</ListContext>
+                                    <RowIndex i:nil="true" />
+                                    <BoundDataSource>TrvInterimApprover</BoundDataSource>
+                                    <BoundProperty>UserAlias</BoundProperty>
+                                    <ControlName>UserAlias</ControlName>
+                                    <ControlType>Input</ControlType>
+                                    <IsReference>false</IsReference>
+                                    <LabelId i:nil="true" />
+                                    <PropertyName>Value</PropertyName>
+                                    <UserActionType>Input</UserActionType>
+                                    <Value>amyreynolds</Value>
+                                    <ValueLabel i:nil="true" />
+                                  </Node>
+                                </Children>
+                                <IsForm>false</IsForm>
+                                <IsStepGroup>false</IsStepGroup>
+                                <Name>UserAlias_Value</Name>
+                                <ScopeType>Private</ScopeType>
+                              </Node>
+                              <Node z:Id="i23" i:type="Scope">
+                                <CustomDescription i:nil="true" />
+                                <Description></Description>
+                                <Id>2477_1Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                                <Parent z:Ref="i18" />
+                                <ParentSequence>35</ParentSequence>
+                                <ScreenshotUri i:nil="true" />
+                                <Sequence>36</Sequence>
+                                <Children>
+                                  <Node z:Id="i24" i:type="CommandUserAction">
+                                    <CustomDescription i:nil="true" />
+                                    <Description>Click OK.</Description>
+                                    <Id>2477_1Click_7841754c-1021-4071-8760-ceec0889e40ex37</Id>
+                                    <Parent z:Ref="i23" />
+                                    <ParentSequence>36</ParentSequence>
+                                    <ScreenshotUri i:nil="true" />
+                                    <Sequence>37</Sequence>
+                                    <Annotations />
+                                    <GlobalId>8d4896d8-41bc-4806-a00a-878347cc9f9e</GlobalId>
+                                    <SystemGenerated>false</SystemGenerated>
+                                    <ControlLabel>OK</ControlLabel>
+                                    <ControlLabelId></ControlLabelId>
+                                    <FormId>2421_TrvInterimApproversDialog_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                                    <ListContext i:nil="true" />
+                                    <RowIndex i:nil="true" />
+                                    <Arguments />
+                                    <CommandName>Click</CommandName>
+                                    <ControlName>OKButton</ControlName>
+                                    <ControlType>CommandButton</ControlType>
+                                    <LabelId i:nil="true" />
+                                    <ReturnType>Void</ReturnType>
+                                    <ReturnValue i:nil="true" />
+                                    <TaskId>263</TaskId>
+                                  </Node>
+                                </Children>
+                                <IsForm>false</IsForm>
+                                <IsStepGroup>false</IsStepGroup>
+                                <Name>OKButton_Click</Name>
+                                <ScopeType>Private</ScopeType>
+                              </Node>
+                            </Children>
+                            <IsForm>true</IsForm>
+                            <IsStepGroup>false</IsStepGroup>
+                            <Name>TrvInterimApproversDialog</Name>
+                            <ScopeType>Public</ScopeType>
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>SelectInterimApprovers_Click</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i25" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2407Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i7" />
+                        <ParentSequence>38</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>39</Sequence>
+                        <Children>
+                          <Node z:Id="i26" i:type="CommandUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Click Create.</Description>
+                            <Id>2407Click_7841754c-1021-4071-8760-ceec0889e40ex40</Id>
+                            <Parent z:Ref="i25" />
+                            <ParentSequence>39</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>40</Sequence>
+                            <Annotations />
+                            <GlobalId>4376de1e-fb90-4e8e-ba2f-bff1742e1f3d</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Create</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpenseReportCreate</ControlLabelId>
+                            <FormId>2339_ExpenseNewExpenseReport_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <Arguments />
+                            <CommandName>Click</CommandName>
+                            <ControlName>CreateButton</ControlName>
+                            <ControlType>Button</ControlType>
+                            <LabelId></LabelId>
+                            <ReturnType>Void</ReturnType>
+                            <ReturnValue i:nil="true" />
+                            <TaskId i:nil="true" />
+                          </Node>
+                          <Node z:Id="i27" i:type="Scope">
+                            <CustomDescription i:nil="true" />
+                            <Description></Description>
+                            <Id>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                            <Parent z:Ref="i25" />
+                            <ParentSequence>39</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>41</Sequence>
+                            <Children>
+                              <Node z:Id="i28" i:type="TaskUserAction">
+                                <CustomDescription i:nil="true" />
+                                <Description>End sub-task: Create Report.</Description>
+                                <Id>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40ex43</Id>
+                                <Parent z:Ref="i27" />
+                                <ParentSequence>41</ParentSequence>
+                                <ScreenshotUri i:nil="true" />
+                                <Sequence>43</Sequence>
+                                <Annotations />
+                                <GlobalId>65e047bc-74c6-4473-87c4-f3244679f2d9</GlobalId>
+                                <SystemGenerated>false</SystemGenerated>
+                                <Comment i:nil="true" />
+                                <Name>Create Report</Name>
+                                <TaskId>99f62070-442d-42da-8d3a-5f6fdc102eb3_7841754c-1021-4071-8760-ceec0889e40e</TaskId>
+                                <UserActionType>End</UserActionType>
+                              </Node>
+                            </Children>
+                            <IsForm>true</IsForm>
+                            <IsStepGroup>false</IsStepGroup>
+                            <Name>ExpenseReportDetails</Name>
+                            <ScopeType>Public</ScopeType>
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>CreateButton_Click</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                    </Children>
+                    <IsForm>true</IsForm>
+                    <IsStepGroup>false</IsStepGroup>
+                    <Name>ExpenseNewExpenseReport</Name>
+                    <ScopeType>Public</ScopeType>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>NewExpenseReportReportsTab_Click</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+            </Children>
+            <IsForm>true</IsForm>
+            <IsStepGroup>false</IsStepGroup>
+            <Name>ExpenseWorkspace</Name>
+            <ScopeType>Public</ScopeType>
+          </Node>
+        </Children>
+        <IsForm>false</IsForm>
+        <IsStepGroup>false</IsStepGroup>
+        <Name>Create Report</Name>
+        <ScopeType>Task</ScopeType>
+      </Node>
+      <Node z:Id="i29" i:type="TaskUserAction">
+        <CustomDescription i:nil="true" />
+        <Description>Sub-task: Create Electricity Bill.</Description>
+        <Id>7841754c-1021-4071-8760-ceec0889e40ex44</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>44</Sequence>
+        <Annotations />
+        <GlobalId>132043cb-6c19-4982-ae93-45b5ec1a9daa</GlobalId>
+        <SystemGenerated>false</SystemGenerated>
+        <Comment></Comment>
+        <Name>Create Electricity Bill</Name>
+        <TaskId>c376e738-a9b0-476d-b5bf-904bae61142c_7841754c-1021-4071-8760-ceec0889e40e</TaskId>
+        <UserActionType>Begin</UserActionType>
+      </Node>
+      <Node z:Id="i30" i:type="Scope">
+        <CustomDescription i:nil="true" />
+        <Description></Description>
+        <Id>c376e738-a9b0-476d-b5bf-904bae61142c_7841754c-1021-4071-8760-ceec0889e40e</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>45</Sequence>
+        <Children>
+          <Node z:Id="i31" i:type="Scope">
+            <CustomDescription i:nil="true" />
+            <Description></Description>
+            <Id>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</Id>
+            <Parent z:Ref="i30" />
+            <ParentSequence>45</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>46</Sequence>
+            <Children>
+              <Node z:Id="i32" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2593_1Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i31" />
+                <ParentSequence>47</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>48</Sequence>
+                <Children>
+                  <Node z:Id="i33" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Click New expense.</Description>
+                    <Id>2593_1Click_7841754c-1021-4071-8760-ceec0889e40ex49</Id>
+                    <Parent z:Ref="i32" />
+                    <ParentSequence>48</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>49</Sequence>
+                    <Annotations />
+                    <GlobalId>f0f616fe-84e3-4e92-b03a-99fb49116caf</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>New expense</ControlLabel>
+                    <ControlLabelId>@ExpenseManagement:NewExpense</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>Click</CommandName>
+                    <ControlName>NewExpenseButton</ControlName>
+                    <ControlType>Button</ControlType>
+                    <LabelId i:nil="true" />
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId></TaskId>
+                  </Node>
+                  <Node z:Id="i34" i:type="Scope">
+                    <CustomDescription i:nil="true" />
+                    <Description></Description>
+                    <Id>2619_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                    <Parent z:Ref="i32" />
+                    <ParentSequence>48</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>50</Sequence>
+                    <Children>
+                      <Node z:Id="i35" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2646Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i34" />
+                        <ParentSequence>52</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>53</Sequence>
+                        <Children>
+                          <Node z:Id="i36" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Category field, type 'Employee Benefits - Misc'.</Description>
+                            <Id>2646Value_7841754c-1021-4071-8760-ceec0889e40ex54</Id>
+                            <Parent z:Ref="i35" />
+                            <ParentSequence>53</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>54</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>e9d264fd-cde0-4437-b6c1-c3ef61000a6a</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>7d4c736b-3dff-4c2b-994c-7cd10a12f817</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Category</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpTransCategory</ControlLabelId>
+                            <FormId>2619_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>CostType</BoundProperty>
+                            <ControlName>CategoryInput</ControlName>
+                            <ControlType>Input</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>Employee Benefits - Misc</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>CategoryInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i37" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2648Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i34" />
+                        <ParentSequence>55</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>56</Sequence>
+                        <Children>
+                          <Node z:Id="i38" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Set Amount to '#ELECTRICITY_BILL_AMOUNT#'.</Description>
+                            <Id>2648Value_7841754c-1021-4071-8760-ceec0889e40ex57</Id>
+                            <Parent z:Ref="i37" />
+                            <ParentSequence>56</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>57</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>c00ae79e-50d5-4b7d-ab33-f218cb80f6ae</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>145b9e6a-ecf5-4165-ae52-84d0b1df2b6a</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Amount</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpReportTransAmount</ControlLabelId>
+                            <FormId>2619_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>AmountCurr</BoundProperty>
+                            <ControlName>AmountInput</ControlName>
+                            <ControlType>Real</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>#ELECTRICITY_BILL_AMOUNT#</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>AmountInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i39" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2652Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i34" />
+                        <ParentSequence>58</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>59</Sequence>
+                        <Children>
+                          <Node z:Id="i40" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Merchant field, type '#ELECTRICITY_PROVIDER_NAME#'.</Description>
+                            <Id>2652Value_7841754c-1021-4071-8760-ceec0889e40ex60</Id>
+                            <Parent z:Ref="i39" />
+                            <ParentSequence>59</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>60</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>2c7ba351-b573-47fe-97a6-6d92e46418fa</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>31f7c866-af74-48d3-a6b2-9acb1e655dfc</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Merchant</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpTransMerchant</ControlLabelId>
+                            <FormId>2619_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>MerchantId</BoundProperty>
+                            <ControlName>MerchantInputNoLookup</ControlName>
+                            <ControlType>Input</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>#ELECTRICITY_PROVIDER_NAME#</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>MerchantInputNoLookup_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i41" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2653Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i34" />
+                        <ParentSequence>61</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>62</Sequence>
+                        <Children>
+                          <Node z:Id="i42" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Expense Description / Business Purpose field, enter 'Bi-monthly electricity bill'.</Description>
+                            <Id>2653Value_7841754c-1021-4071-8760-ceec0889e40ex63</Id>
+                            <Parent z:Ref="i41" />
+                            <ParentSequence>62</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>63</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>caba6f63-a060-4968-903b-3e32bcf62fd7</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>f426b05b-fbe1-40e5-a616-66326b74e803</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Expense Description / Business Purpose</ControlLabel>
+                            <ControlLabelId></ControlLabelId>
+                            <FormId>2619_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>AdditionalInformation</BoundProperty>
+                            <ControlName>NotesInput</ControlName>
+                            <ControlType>MultilineInput</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>Bi-monthly electricity bill</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>NotesInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i43" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2654_1Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i34" />
+                        <ParentSequence>64</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>65</Sequence>
+                        <Children>
+                          <Node z:Id="i44" i:type="CommandUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Click Save.</Description>
+                            <Id>2654_1Click_7841754c-1021-4071-8760-ceec0889e40ex66</Id>
+                            <Parent z:Ref="i43" />
+                            <ParentSequence>65</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>66</Sequence>
+                            <Annotations />
+                            <GlobalId>5344fd22-8349-4119-9f9a-0b1a1633bb7b</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Save</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:SaveNewExpenseLabel</ControlLabelId>
+                            <FormId>2619_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <Arguments />
+                            <CommandName>Click</CommandName>
+                            <ControlName>SaveButton</ControlName>
+                            <ControlType>CommandButton</ControlType>
+                            <LabelId i:nil="true" />
+                            <ReturnType>Void</ReturnType>
+                            <ReturnValue i:nil="true" />
+                            <TaskId>263</TaskId>
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>SaveButton_Click</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                    </Children>
+                    <IsForm>true</IsForm>
+                    <IsStepGroup>false</IsStepGroup>
+                    <Name>ExpenseAddNewExpense</Name>
+                    <ScopeType>Public</ScopeType>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>NewExpenseButton_Click</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i45" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2732Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i31" />
+                <ParentSequence>70</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>71</Sequence>
+                <Children>
+                  <Node z:Id="i46" i:type="PropertyUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>In the Country/region field, type '#EXPENSE_COUNTRY_CODE#'.</Description>
+                    <Id>2732Value_7841754c-1021-4071-8760-ceec0889e40ex72</Id>
+                    <Parent z:Ref="i45" />
+                    <ParentSequence>71</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>72</Sequence>
+                    <Annotations>
+                      <Annotation i:type="TaskGuideAnnotation">
+                        <Description></Description>
+                        <ExampleText i:nil="true" />
+                        <GlobalId>3457bfef-23c9-4c40-a6c0-905ea55d3736</GlobalId>
+                        <Hidden>false</Hidden>
+                        <RecordingValueType>Preferred</RecordingValueType>
+                        <Title></Title>
+                      </Annotation>
+                    </Annotations>
+                    <GlobalId>7fe28b7d-930e-4a54-b3a4-e1576b670797</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>Country/region</ControlLabel>
+                    <ControlLabelId>@SYS7437</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <BoundDataSource>TrvExpTrans</BoundDataSource>
+                    <BoundProperty>CountryRegion</BoundProperty>
+                    <ControlName>TrvExpTrans_CountryRegion</ControlName>
+                    <ControlType>Input</ControlType>
+                    <IsReference>false</IsReference>
+                    <LabelId i:nil="true" />
+                    <PropertyName>Value</PropertyName>
+                    <UserActionType>Input</UserActionType>
+                    <Value>#EXPENSE_COUNTRY_CODE#</Value>
+                    <ValueLabel i:nil="true" />
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>TrvExpTrans_CountryRegion_Value</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i47" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2752_1Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i31" />
+                <ParentSequence>73</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>74</Sequence>
+                <Children>
+                  <Node z:Id="i48" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Click Save and continue.</Description>
+                    <Id>2752_1Click_7841754c-1021-4071-8760-ceec0889e40ex75</Id>
+                    <Parent z:Ref="i47" />
+                    <ParentSequence>74</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>75</Sequence>
+                    <Annotations />
+                    <GlobalId>e405e390-614c-4ca5-92e5-479fa020a812</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>Save and continue</ControlLabel>
+                    <ControlLabelId>@ExpenseManagement:ExpenseReportDetailsSaveContinueButton</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>Click</CommandName>
+                    <ControlName>CommandButtonNext</ControlName>
+                    <ControlType>CommandButton</ControlType>
+                    <LabelId i:nil="true" />
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId>272</TaskId>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>CommandButtonNext_Click</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i49" i:type="TaskUserAction">
+                <CustomDescription i:nil="true" />
+                <Description>End sub-task: Create Electricity Bill.</Description>
+                <Id>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40ex80</Id>
+                <Parent z:Ref="i31" />
+                <ParentSequence>46</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>80</Sequence>
+                <Annotations />
+                <GlobalId>25828ec6-ef39-4cf7-942c-11c92c48b688</GlobalId>
+                <SystemGenerated>false</SystemGenerated>
+                <Comment i:nil="true" />
+                <Name>Create Electricity Bill</Name>
+                <TaskId>c376e738-a9b0-476d-b5bf-904bae61142c_7841754c-1021-4071-8760-ceec0889e40e</TaskId>
+                <UserActionType>End</UserActionType>
+              </Node>
+            </Children>
+            <IsForm>true</IsForm>
+            <IsStepGroup>false</IsStepGroup>
+            <Name>ExpenseReportDetails</Name>
+            <ScopeType>Public</ScopeType>
+          </Node>
+        </Children>
+        <IsForm>false</IsForm>
+        <IsStepGroup>false</IsStepGroup>
+        <Name>Create Electricity Bill</Name>
+        <ScopeType>Task</ScopeType>
+      </Node>
+      <Node z:Id="i50" i:type="TaskUserAction">
+        <CustomDescription i:nil="true" />
+        <Description>Sub-task: Create Internet Bill.</Description>
+        <Id>7841754c-1021-4071-8760-ceec0889e40ex81</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>81</Sequence>
+        <Annotations />
+        <GlobalId>374e9c76-8880-4547-a871-c7222e524b45</GlobalId>
+        <SystemGenerated>false</SystemGenerated>
+        <Comment></Comment>
+        <Name>Create Internet Bill</Name>
+        <TaskId>b31be621-01b9-483a-b80d-3b0452ef3d00_7841754c-1021-4071-8760-ceec0889e40e</TaskId>
+        <UserActionType>Begin</UserActionType>
+      </Node>
+      <Node z:Id="i51" i:type="Scope">
+        <CustomDescription i:nil="true" />
+        <Description></Description>
+        <Id>b31be621-01b9-483a-b80d-3b0452ef3d00_7841754c-1021-4071-8760-ceec0889e40e</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>82</Sequence>
+        <Children>
+          <Node z:Id="i52" i:type="Scope">
+            <CustomDescription i:nil="true" />
+            <Description></Description>
+            <Id>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</Id>
+            <Parent z:Ref="i51" />
+            <ParentSequence>82</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>83</Sequence>
+            <Children>
+              <Node z:Id="i53" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2593_0Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i52" />
+                <ParentSequence>84</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>85</Sequence>
+                <Children>
+                  <Node z:Id="i54" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Click New expense.</Description>
+                    <Id>2593_0Click_7841754c-1021-4071-8760-ceec0889e40ex86</Id>
+                    <Parent z:Ref="i53" />
+                    <ParentSequence>85</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>86</Sequence>
+                    <Annotations />
+                    <GlobalId>776ffa29-14ff-41c6-9736-1b580f27d67f</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>New expense</ControlLabel>
+                    <ControlLabelId>@ExpenseManagement:NewExpense</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>Click</CommandName>
+                    <ControlName>NewExpenseButton</ControlName>
+                    <ControlType>Button</ControlType>
+                    <LabelId i:nil="true" />
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId></TaskId>
+                  </Node>
+                  <Node z:Id="i55" i:type="Scope">
+                    <CustomDescription i:nil="true" />
+                    <Description></Description>
+                    <Id>2823_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                    <Parent z:Ref="i53" />
+                    <ParentSequence>85</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>87</Sequence>
+                    <Children>
+                      <Node z:Id="i56" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2850Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i55" />
+                        <ParentSequence>89</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>94</Sequence>
+                        <Children>
+                          <Node z:Id="i57" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Category field, type 'Broadband - Home'.</Description>
+                            <Id>2850Value_7841754c-1021-4071-8760-ceec0889e40ex95</Id>
+                            <Parent z:Ref="i56" />
+                            <ParentSequence>94</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>95</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>ed46b95c-21e6-4e95-9142-fcd88b3dd922</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>b8972e09-9a26-410c-860b-bb946f5226d8</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Category</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpTransCategory</ControlLabelId>
+                            <FormId>2823_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>CostType</BoundProperty>
+                            <ControlName>CategoryInput</ControlName>
+                            <ControlType>Input</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>Broadband - Home</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>CategoryInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i58" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2852Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i55" />
+                        <ParentSequence>99</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>100</Sequence>
+                        <Children>
+                          <Node z:Id="i59" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Set Amount to '#INTERNET_BILL_AMOUNT#'.</Description>
+                            <Id>2852Value_7841754c-1021-4071-8760-ceec0889e40ex101</Id>
+                            <Parent z:Ref="i58" />
+                            <ParentSequence>100</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>101</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>47ea5cc0-7954-4671-ba5d-ba3d935c2dff</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>00c2411c-9c60-42af-8b3e-4ef84e9235ad</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Amount</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpReportTransAmount</ControlLabelId>
+                            <FormId>2823_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>AmountCurr</BoundProperty>
+                            <ControlName>AmountInput</ControlName>
+                            <ControlType>Real</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>#INTERNET_BILL_AMOUNT#</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>AmountInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i60" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2856Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i55" />
+                        <ParentSequence>102</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>103</Sequence>
+                        <Children>
+                          <Node z:Id="i61" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Merchant field, type '#INTERNET_PROVIDER_NAME#'.</Description>
+                            <Id>2856Value_7841754c-1021-4071-8760-ceec0889e40ex104</Id>
+                            <Parent z:Ref="i60" />
+                            <ParentSequence>103</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>104</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>bb40578e-de53-47b5-bd94-bfb543691873</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>ed460030-5759-4a9e-baf6-25c6555ab6cb</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Merchant</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpTransMerchant</ControlLabelId>
+                            <FormId>2823_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>MerchantId</BoundProperty>
+                            <ControlName>MerchantInputNoLookup</ControlName>
+                            <ControlType>Input</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>#INTERNET_PROVIDER_NAME#</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>MerchantInputNoLookup_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i62" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2857Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i55" />
+                        <ParentSequence>105</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>106</Sequence>
+                        <Children>
+                          <Node z:Id="i63" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Expense Description / Business Purpose field, enter 'Monthly Internet Bill'.</Description>
+                            <Id>2857Value_7841754c-1021-4071-8760-ceec0889e40ex107</Id>
+                            <Parent z:Ref="i62" />
+                            <ParentSequence>106</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>107</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>0a621f90-3dc6-4c0d-a3ba-c59c98e70361</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>d3601d67-a499-4b1d-b37e-5a5798c6a9ae</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Expense Description / Business Purpose</ControlLabel>
+                            <ControlLabelId></ControlLabelId>
+                            <FormId>2823_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>AdditionalInformation</BoundProperty>
+                            <ControlName>NotesInput</ControlName>
+                            <ControlType>MultilineInput</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>Monthly Internet Bill</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>NotesInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i64" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>2858_0Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i55" />
+                        <ParentSequence>108</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>109</Sequence>
+                        <Children>
+                          <Node z:Id="i65" i:type="CommandUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Click Save.</Description>
+                            <Id>2858_0Click_7841754c-1021-4071-8760-ceec0889e40ex110</Id>
+                            <Parent z:Ref="i64" />
+                            <ParentSequence>109</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>110</Sequence>
+                            <Annotations />
+                            <GlobalId>c4e8c1c3-766e-40ce-92ff-b885a73e480f</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Save</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:SaveNewExpenseLabel</ControlLabelId>
+                            <FormId>2823_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <Arguments />
+                            <CommandName>Click</CommandName>
+                            <ControlName>SaveButton</ControlName>
+                            <ControlType>CommandButton</ControlType>
+                            <LabelId i:nil="true" />
+                            <ReturnType>Void</ReturnType>
+                            <ReturnValue i:nil="true" />
+                            <TaskId>263</TaskId>
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>SaveButton_Click</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                    </Children>
+                    <IsForm>true</IsForm>
+                    <IsStepGroup>false</IsStepGroup>
+                    <Name>ExpenseAddNewExpense</Name>
+                    <ScopeType>Public</ScopeType>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>NewExpenseButton_Click</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i66" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2732Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i52" />
+                <ParentSequence>114</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>115</Sequence>
+                <Children>
+                  <Node z:Id="i67" i:type="PropertyUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>In the Country/region field, type '#EXPENSE_COUNTRY_CODE#'.</Description>
+                    <Id>2732Value_7841754c-1021-4071-8760-ceec0889e40ex116</Id>
+                    <Parent z:Ref="i66" />
+                    <ParentSequence>115</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>116</Sequence>
+                    <Annotations>
+                      <Annotation i:type="TaskGuideAnnotation">
+                        <Description></Description>
+                        <ExampleText i:nil="true" />
+                        <GlobalId>88d504ee-26ca-478a-b619-7f92332fa5d4</GlobalId>
+                        <Hidden>false</Hidden>
+                        <RecordingValueType>Preferred</RecordingValueType>
+                        <Title></Title>
+                      </Annotation>
+                    </Annotations>
+                    <GlobalId>631f61f3-d543-4fef-8f64-4a98a9eccafe</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>Country/region</ControlLabel>
+                    <ControlLabelId>@SYS7437</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <BoundDataSource>TrvExpTrans</BoundDataSource>
+                    <BoundProperty>CountryRegion</BoundProperty>
+                    <ControlName>TrvExpTrans_CountryRegion</ControlName>
+                    <ControlType>Input</ControlType>
+                    <IsReference>false</IsReference>
+                    <LabelId i:nil="true" />
+                    <PropertyName>Value</PropertyName>
+                    <UserActionType>Input</UserActionType>
+                    <Value>#EXPENSE_COUNTRY_CODE#</Value>
+                    <ValueLabel i:nil="true" />
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>TrvExpTrans_CountryRegion_Value</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i68" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2752_0Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i52" />
+                <ParentSequence>117</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>118</Sequence>
+                <Children>
+                  <Node z:Id="i69" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Click Save and continue.</Description>
+                    <Id>2752_0Click_7841754c-1021-4071-8760-ceec0889e40ex119</Id>
+                    <Parent z:Ref="i68" />
+                    <ParentSequence>118</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>119</Sequence>
+                    <Annotations />
+                    <GlobalId>0b592b68-3285-4105-8eb4-e52cb4ce3cd7</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>Save and continue</ControlLabel>
+                    <ControlLabelId>@ExpenseManagement:ExpenseReportDetailsSaveContinueButton</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>Click</CommandName>
+                    <ControlName>CommandButtonNext</ControlName>
+                    <ControlType>CommandButton</ControlType>
+                    <LabelId i:nil="true" />
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId>272</TaskId>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>CommandButtonNext_Click</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i70" i:type="TaskUserAction">
+                <CustomDescription i:nil="true" />
+                <Description>End sub-task: Create Internet Bill.</Description>
+                <Id>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40ex124</Id>
+                <Parent z:Ref="i52" />
+                <ParentSequence>83</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>124</Sequence>
+                <Annotations />
+                <GlobalId>6cddf0ea-1614-4632-ac77-1b5c2c5a17f1</GlobalId>
+                <SystemGenerated>false</SystemGenerated>
+                <Comment i:nil="true" />
+                <Name>Create Internet Bill</Name>
+                <TaskId>b31be621-01b9-483a-b80d-3b0452ef3d00_7841754c-1021-4071-8760-ceec0889e40e</TaskId>
+                <UserActionType>End</UserActionType>
+              </Node>
+            </Children>
+            <IsForm>true</IsForm>
+            <IsStepGroup>false</IsStepGroup>
+            <Name>ExpenseReportDetails</Name>
+            <ScopeType>Public</ScopeType>
+          </Node>
+        </Children>
+        <IsForm>false</IsForm>
+        <IsStepGroup>false</IsStepGroup>
+        <Name>Create Internet Bill</Name>
+        <ScopeType>Task</ScopeType>
+      </Node>
+      <Node z:Id="i71" i:type="TaskUserAction">
+        <CustomDescription i:nil="true" />
+        <Description>Sub-task: Create Cellular Plan Bill.</Description>
+        <Id>7841754c-1021-4071-8760-ceec0889e40ex125</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>125</Sequence>
+        <Annotations />
+        <GlobalId>d3b3d34a-06f3-4071-873b-4d7ef6d46787</GlobalId>
+        <SystemGenerated>false</SystemGenerated>
+        <Comment></Comment>
+        <Name>Create Cellular Plan Bill</Name>
+        <TaskId>d10c034c-1b06-410f-9f65-1eab9bbd3235_7841754c-1021-4071-8760-ceec0889e40e</TaskId>
+        <UserActionType>Begin</UserActionType>
+      </Node>
+      <Node z:Id="i72" i:type="Scope">
+        <CustomDescription i:nil="true" />
+        <Description></Description>
+        <Id>d10c034c-1b06-410f-9f65-1eab9bbd3235_7841754c-1021-4071-8760-ceec0889e40e</Id>
+        <Parent z:Ref="i1" />
+        <ParentSequence>0</ParentSequence>
+        <ScreenshotUri i:nil="true" />
+        <Sequence>126</Sequence>
+        <Children>
+          <Node z:Id="i73" i:type="Scope">
+            <CustomDescription i:nil="true" />
+            <Description></Description>
+            <Id>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</Id>
+            <Parent z:Ref="i72" />
+            <ParentSequence>126</ParentSequence>
+            <ScreenshotUri i:nil="true" />
+            <Sequence>127</Sequence>
+            <Children>
+              <Node z:Id="i74" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2593_0Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i73" />
+                <ParentSequence>128</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>129</Sequence>
+                <Children>
+                  <Node z:Id="i75" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Click New expense.</Description>
+                    <Id>2593_0Click_7841754c-1021-4071-8760-ceec0889e40ex130</Id>
+                    <Parent z:Ref="i74" />
+                    <ParentSequence>129</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>130</Sequence>
+                    <Annotations />
+                    <GlobalId>6e7d635b-7248-437f-9b23-59d5c9ef78ca</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>New expense</ControlLabel>
+                    <ControlLabelId>@ExpenseManagement:NewExpense</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>Click</CommandName>
+                    <ControlName>NewExpenseButton</ControlName>
+                    <ControlType>Button</ControlType>
+                    <LabelId i:nil="true" />
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId></TaskId>
+                  </Node>
+                  <Node z:Id="i76" i:type="Scope">
+                    <CustomDescription i:nil="true" />
+                    <Description></Description>
+                    <Id>3101_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                    <Parent z:Ref="i74" />
+                    <ParentSequence>129</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>131</Sequence>
+                    <Children>
+                      <Node z:Id="i77" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>3128Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i76" />
+                        <ParentSequence>133</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>138</Sequence>
+                        <Children>
+                          <Node z:Id="i78" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Category field, type 'Mobile/Cellular Phone'.</Description>
+                            <Id>3128Value_7841754c-1021-4071-8760-ceec0889e40ex139</Id>
+                            <Parent z:Ref="i77" />
+                            <ParentSequence>138</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>139</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>30ededda-27b4-4c16-a439-33522dd9d024</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>08e09a94-4c50-4fd9-ab79-0c2e82ac663e</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Category</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpTransCategory</ControlLabelId>
+                            <FormId>3101_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>CostType</BoundProperty>
+                            <ControlName>CategoryInput</ControlName>
+                            <ControlType>Input</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>Mobile/Cellular Phone</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>CategoryInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i79" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>3130Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i76" />
+                        <ParentSequence>143</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>144</Sequence>
+                        <Children>
+                          <Node z:Id="i80" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Set Amount to '#CELLULAR_PLAN_BILL_AMOUNT#'.</Description>
+                            <Id>3130Value_7841754c-1021-4071-8760-ceec0889e40ex145</Id>
+                            <Parent z:Ref="i79" />
+                            <ParentSequence>144</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>145</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>e26754ee-1bb1-418e-8a3d-82adadfa3b26</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>205cf34c-e302-4726-a9a6-1ddf65129e8c</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Amount</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpReportTransAmount</ControlLabelId>
+                            <FormId>3101_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>AmountCurr</BoundProperty>
+                            <ControlName>AmountInput</ControlName>
+                            <ControlType>Real</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>#CELLULAR_PLAN_BILL_AMOUNT#</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>AmountInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i81" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>3134Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i76" />
+                        <ParentSequence>146</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>147</Sequence>
+                        <Children>
+                          <Node z:Id="i82" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Merchant field, type '#CELLULAR_PLAN_PROVIDER_NAME#'.</Description>
+                            <Id>3134Value_7841754c-1021-4071-8760-ceec0889e40ex148</Id>
+                            <Parent z:Ref="i81" />
+                            <ParentSequence>147</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>148</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>72262711-5d35-4707-8eff-c4013ae8abd4</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>30789ff3-ce08-4e72-b3d2-1cdfdebd8a65</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Merchant</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:ExpTransMerchant</ControlLabelId>
+                            <FormId>3101_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>MerchantId</BoundProperty>
+                            <ControlName>MerchantInputNoLookup</ControlName>
+                            <ControlType>Input</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>#CELLULAR_PLAN_PROVIDER_NAME#</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>MerchantInputNoLookup_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i83" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>3135Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i76" />
+                        <ParentSequence>149</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>150</Sequence>
+                        <Children>
+                          <Node z:Id="i84" i:type="PropertyUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>In the Expense Description / Business Purpose field, enter 'Monthly Cellular Plan Bill'.</Description>
+                            <Id>3135Value_7841754c-1021-4071-8760-ceec0889e40ex151</Id>
+                            <Parent z:Ref="i83" />
+                            <ParentSequence>150</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>151</Sequence>
+                            <Annotations>
+                              <Annotation i:type="TaskGuideAnnotation">
+                                <Description></Description>
+                                <ExampleText i:nil="true" />
+                                <GlobalId>ac2b8f57-9886-4f31-88e3-5ac7b8ab49fc</GlobalId>
+                                <Hidden>false</Hidden>
+                                <RecordingValueType>Preferred</RecordingValueType>
+                                <Title></Title>
+                              </Annotation>
+                            </Annotations>
+                            <GlobalId>18997b96-a682-4eb1-9ab5-afb9fb161612</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Expense Description / Business Purpose</ControlLabel>
+                            <ControlLabelId></ControlLabelId>
+                            <FormId>3101_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <BoundDataSource>TrvExpTrans</BoundDataSource>
+                            <BoundProperty>AdditionalInformation</BoundProperty>
+                            <ControlName>NotesInput</ControlName>
+                            <ControlType>MultilineInput</ControlType>
+                            <IsReference>false</IsReference>
+                            <LabelId i:nil="true" />
+                            <PropertyName>Value</PropertyName>
+                            <UserActionType>Input</UserActionType>
+                            <Value>Monthly Cellular Plan Bill</Value>
+                            <ValueLabel i:nil="true" />
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>NotesInput_Value</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                      <Node z:Id="i85" i:type="Scope">
+                        <CustomDescription i:nil="true" />
+                        <Description></Description>
+                        <Id>3136_0Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                        <Parent z:Ref="i76" />
+                        <ParentSequence>152</ParentSequence>
+                        <ScreenshotUri i:nil="true" />
+                        <Sequence>153</Sequence>
+                        <Children>
+                          <Node z:Id="i86" i:type="CommandUserAction">
+                            <CustomDescription i:nil="true" />
+                            <Description>Click Save.</Description>
+                            <Id>3136_0Click_7841754c-1021-4071-8760-ceec0889e40ex154</Id>
+                            <Parent z:Ref="i85" />
+                            <ParentSequence>153</ParentSequence>
+                            <ScreenshotUri i:nil="true" />
+                            <Sequence>154</Sequence>
+                            <Annotations />
+                            <GlobalId>00f10b59-065f-470a-aec6-921fa23b3343</GlobalId>
+                            <SystemGenerated>false</SystemGenerated>
+                            <ControlLabel>Save</ControlLabel>
+                            <ControlLabelId>@ExpenseManagement:SaveNewExpenseLabel</ControlLabelId>
+                            <FormId>3101_ExpenseAddNewExpense_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                            <ListContext i:nil="true" />
+                            <RowIndex i:nil="true" />
+                            <Arguments />
+                            <CommandName>Click</CommandName>
+                            <ControlName>SaveButton</ControlName>
+                            <ControlType>CommandButton</ControlType>
+                            <LabelId i:nil="true" />
+                            <ReturnType>Void</ReturnType>
+                            <ReturnValue i:nil="true" />
+                            <TaskId>263</TaskId>
+                          </Node>
+                        </Children>
+                        <IsForm>false</IsForm>
+                        <IsStepGroup>false</IsStepGroup>
+                        <Name>SaveButton_Click</Name>
+                        <ScopeType>Private</ScopeType>
+                      </Node>
+                    </Children>
+                    <IsForm>true</IsForm>
+                    <IsStepGroup>false</IsStepGroup>
+                    <Name>ExpenseAddNewExpense</Name>
+                    <ScopeType>Public</ScopeType>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>NewExpenseButton_Click</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i87" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2732Value_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i73" />
+                <ParentSequence>158</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>159</Sequence>
+                <Children>
+                  <Node z:Id="i88" i:type="PropertyUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>In the Country/region field, type '#EXPENSE_COUNTRY_CODE#'.</Description>
+                    <Id>2732Value_7841754c-1021-4071-8760-ceec0889e40ex160</Id>
+                    <Parent z:Ref="i87" />
+                    <ParentSequence>159</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>160</Sequence>
+                    <Annotations>
+                      <Annotation i:type="TaskGuideAnnotation">
+                        <Description></Description>
+                        <ExampleText i:nil="true" />
+                        <GlobalId>91cf58a1-8f0b-48b7-a2eb-40afa5bc4be4</GlobalId>
+                        <Hidden>false</Hidden>
+                        <RecordingValueType>Preferred</RecordingValueType>
+                        <Title></Title>
+                      </Annotation>
+                    </Annotations>
+                    <GlobalId>086676d2-043e-46d3-a48e-6500c2f88bf3</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>Country/region</ControlLabel>
+                    <ControlLabelId>@SYS7437</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <BoundDataSource>TrvExpTrans</BoundDataSource>
+                    <BoundProperty>CountryRegion</BoundProperty>
+                    <ControlName>TrvExpTrans_CountryRegion</ControlName>
+                    <ControlType>Input</ControlType>
+                    <IsReference>false</IsReference>
+                    <LabelId i:nil="true" />
+                    <PropertyName>Value</PropertyName>
+                    <UserActionType>Input</UserActionType>
+                    <Value>#EXPENSE_COUNTRY_CODE#</Value>
+                    <ValueLabel i:nil="true" />
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>TrvExpTrans_CountryRegion_Value</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i89" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2752_0Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i73" />
+                <ParentSequence>161</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>162</Sequence>
+                <Children>
+                  <Node z:Id="i90" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Click Save and continue.</Description>
+                    <Id>2752_0Click_7841754c-1021-4071-8760-ceec0889e40ex163</Id>
+                    <Parent z:Ref="i89" />
+                    <ParentSequence>162</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>163</Sequence>
+                    <Annotations />
+                    <GlobalId>8f034e53-0b74-4719-a32e-18d4a51f44dd</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>Save and continue</ControlLabel>
+                    <ControlLabelId>@ExpenseManagement:ExpenseReportDetailsSaveContinueButton</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>Click</CommandName>
+                    <ControlName>CommandButtonNext</ControlName>
+                    <ControlType>CommandButton</ControlType>
+                    <LabelId i:nil="true" />
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId>272</TaskId>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>CommandButtonNext_Click</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+              <Node z:Id="i91" i:type="TaskUserAction">
+                <CustomDescription i:nil="true" />
+                <Description>End sub-task: Create Cellular Plan Bill.</Description>
+                <Id>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40ex168</Id>
+                <Parent z:Ref="i73" />
+                <ParentSequence>127</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>168</Sequence>
+                <Annotations />
+                <GlobalId>ab4e3915-8e51-4964-a790-c5f9138ad391</GlobalId>
+                <SystemGenerated>false</SystemGenerated>
+                <Comment i:nil="true" />
+                <Name>Create Cellular Plan Bill</Name>
+                <TaskId>d10c034c-1b06-410f-9f65-1eab9bbd3235_7841754c-1021-4071-8760-ceec0889e40e</TaskId>
+                <UserActionType>End</UserActionType>
+              </Node>
+              <Node z:Id="i92" i:type="Scope">
+                <CustomDescription i:nil="true" />
+                <Description></Description>
+                <Id>2585_0Click_7841754c-1021-4071-8760-ceec0889e40e</Id>
+                <Parent z:Ref="i73" />
+                <ParentSequence>127</ParentSequence>
+                <ScreenshotUri i:nil="true" />
+                <Sequence>171</Sequence>
+                <Children>
+                  <Node z:Id="i93" i:type="CommandUserAction">
+                    <CustomDescription i:nil="true" />
+                    <Description>Click Save and close.</Description>
+                    <Id>2585_0Click_7841754c-1021-4071-8760-ceec0889e40ex172</Id>
+                    <Parent z:Ref="i92" />
+                    <ParentSequence>171</ParentSequence>
+                    <ScreenshotUri i:nil="true" />
+                    <Sequence>172</Sequence>
+                    <Annotations />
+                    <GlobalId>1df1e9a4-fd88-4eb3-a9eb-abfc00647221</GlobalId>
+                    <SystemGenerated>false</SystemGenerated>
+                    <ControlLabel>Save and close</ControlLabel>
+                    <ControlLabelId>@SYS326958</ControlLabelId>
+                    <FormId>2501_ExpenseReportDetails_7841754c-1021-4071-8760-ceec0889e40e</FormId>
+                    <ListContext i:nil="true" />
+                    <RowIndex i:nil="true" />
+                    <Arguments />
+                    <CommandName>Click</CommandName>
+                    <ControlName>SaveAndClose</ControlName>
+                    <ControlType>CommandButton</ControlType>
+                    <LabelId i:nil="true" />
+                    <ReturnType>Void</ReturnType>
+                    <ReturnValue i:nil="true" />
+                    <TaskId>1313</TaskId>
+                  </Node>
+                </Children>
+                <IsForm>false</IsForm>
+                <IsStepGroup>false</IsStepGroup>
+                <Name>SaveAndClose_Click</Name>
+                <ScopeType>Private</ScopeType>
+              </Node>
+            </Children>
+            <IsForm>true</IsForm>
+            <IsStepGroup>false</IsStepGroup>
+            <Name>ExpenseReportDetails</Name>
+            <ScopeType>Public</ScopeType>
+          </Node>
+        </Children>
+        <IsForm>false</IsForm>
+        <IsStepGroup>false</IsStepGroup>
+        <Name>Create Cellular Plan Bill</Name>
+        <ScopeType>Task</ScopeType>
+      </Node>
+    </Children>
+    <IsForm>false</IsForm>
+    <IsStepGroup>false</IsStepGroup>
+    <Name>Auto-create #EXPENSE_COUNTRY_CODE# Monthly Telework Expense</Name>
+    <ScopeType>Public</ScopeType>
+  </RootScope>
+  <UserActions xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+    <d2p1:anyType z:Ref="i2" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i6" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i9" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i11" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i13" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i15" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i17" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i20" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i22" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i24" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i26" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i28" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i29" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i33" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i36" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i38" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i40" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i42" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i44" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i46" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i48" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i49" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i50" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i54" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i57" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i59" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i61" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i63" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i65" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i67" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i69" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i70" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i71" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i75" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i78" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i80" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i82" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i84" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i86" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i88" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i90" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i91" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+    <d2p1:anyType z:Ref="i93" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" />
+  </UserActions>
+  <Version>1</Version>
+</Recording>
+            `;
+
+            let paramsProvided = true;
+            const paramsProviderSuccessMsg = "Downloading expense report...";
+            let missingParamsErrorMsg = "Please provider all required parameters.";
+
+            const replacements = {
+                '#EXPENSE_MONTH#': urlParams.get('expense_month'),
+                '#EXPENSE_YEAR#': urlParams.get('expense_year'),
+                '#INTERNET_BILL_AMOUNT#': urlParams.get('internet_bill_amount'),
+                '#INTERNET_PROVIDER_NAME#': urlParams.get('internet_provider_name'),
+                '#ELECTRICITY_BILL_AMOUNT#': urlParams.get('electricity_bill_amount'),
+                '#ELECTRICITY_PROVIDER_NAME#': urlParams.get('electricity_provider_name'),
+                '#CELLULAR_PLAN_BILL_AMOUNT#': urlParams.get('cellular_plan_bill_amount'),
+                '#CELULLAR_PLAN_PROVIDER_NAME#': urlParams.get('celullar_plan_provider_name'),
+                '#EXPENSE_COUNTRY_CODE#': urlParams.get('expense_country_code')
+            };
+
+            for (const [placeholder, value] of Object.entries(replacements)) {
+                if (value) {
+                    baseContent = baseContent.replace(placeholder, value);
+                } else {
+                    paramsProvided = false;
+                    missingParamsErrorMsg += `<br><br>${placeholder}`;
+                }
+            }
+
+            let displayMsg;
+            if (!paramsProvided) {
+                displayMsg = missingParamsErrorMsg;
+            } else {
+                // Create a blob and trigger download
+                const blob = new Blob([baseContent], { type: 'application/xml' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'expense_report.xml';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                displayMsg = paramsProviderSuccessMsg;
+            }
+
+            // Also display the content on the page
+            document.body.innerHTML = `<h2>${displayMsg}</h2>`;
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
